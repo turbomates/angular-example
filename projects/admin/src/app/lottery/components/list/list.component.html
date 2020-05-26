@@ -1,0 +1,77 @@
+<nz-page-header nzTitle="Lottery">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Lottery</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<admin-lottery-list-scope
+  [value]="(searchParams$ | async)?.type"
+></admin-lottery-list-scope>
+
+<nz-table
+  #table
+  nzSize="middle"
+  [nzData]="list$ | async"
+  [nzTotal]="currentTotal$ | async"
+  [nzLoading]="isLoading$ | async"
+  [nzPageSize]="(searchParams$ | async)?.pageSize"
+  [nzPageIndex]="(searchParams$ | async)?.currentPage"
+  (nzPageSizeChange)="pageSizeChange($event)"
+  (nzPageIndexChange)="pageIndexChange($event)"
+  [nzPageSizeOptions]="[10, 20, 30]"
+  [nzShowSizeChanger]="true"
+  [nzFrontPagination]="false"
+  [nzNoResult]="error"
+>
+  <thead>
+    <tr>
+      <th>Lottery name</th>
+      <th>Price</th>
+      <th>Start time</th>
+      <th>Finish time</th>
+      <th>Tickets count</th>
+      <th>Prize</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of table.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.price }}</td>
+      <td>{{ data.startAt | date: "dd-MM-yyyy HH:mm:ss" }}</td>
+      <td>{{ data.finishAt | date: "dd-MM-yyyy HH:mm:ss" }}</td>
+      <td>{{ data.ticketsCount }}</td>
+      <td>{{ data?.prize?.amount }} {{ data?.prize?.currency }}</td>
+
+      <td>
+        <nz-button-group>
+          <a *hasAccess="['UPDATE_LOTTERY']" nz-button [routerLink]="[]">
+            Edit
+          </a>
+          <a
+            nz-button
+            nz-dropdown
+            nzPlacement="bottomRight"
+            [nzDropdownMenu]="actions"
+          >
+            <i nz-icon nzType="ellipsis"></i>
+          </a>
+        </nz-button-group>
+        <nz-dropdown-menu #actions="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item [routerLink]="[]" *hasAccess="['SHOW_LOTTERY']">
+              Show
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #error>
+  <app-error [error]="error$ | async"></app-error>
+</ng-template>

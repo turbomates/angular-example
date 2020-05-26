@@ -1,0 +1,26 @@
+<nz-page-header>
+  <nz-page-header-title>
+    <app-back-button backTo="/achievement"></app-back-button>
+    Create
+  </nz-page-header-title>
+
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/achievement']">Achievement</a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>Create</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<admin-achievements-form
+  formActionType="Create"
+  [data]="data"
+  [isSubmitting]="isSubmitting$ | async"
+  [errors]="formErrors$ | async"
+  (onSubmit)="onSubmit($event)"
+></admin-achievements-form>

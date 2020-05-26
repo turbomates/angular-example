@@ -1,0 +1,140 @@
+<nz-page-header>
+  <nz-page-header-title>
+    <app-back-button backTo="/admins"></app-back-button>
+    Create
+  </nz-page-header-title>
+
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/admins']">Admins</a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>Create</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form
+  nz-form
+  [formGroup]="createForm"
+  [formErrors]="formErrors$ | async"
+  (ngSubmit)="onSubmit()"
+>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">
+      E-mail
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="The input is not valid E-mail!"
+    >
+      <input nz-input formControlName="email" id="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">
+      Username
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input admin username!"
+    >
+      <input nz-input formControlName="username" id="username" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="lastName">
+      Last Name
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input admin last name!"
+    >
+      <input nz-input formControlName="lastName" id="lastName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="firstName">
+      First Name
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input admin first name!"
+    >
+      <input nz-input formControlName="firstName" id="firstName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>
+      Password
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input admin password!"
+    >
+      <input
+        nz-input
+        type="password"
+        id="password"
+        formControlName="password"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="activities" nzRequired>
+      Activities
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input admin activities!"
+    >
+      <nz-select
+        nzShowSearch
+        nzMode="multiple"
+        formControlName="activities"
+        [nzDisabled]="createForm.get('isSuper').value"
+      >
+        <nz-option
+          *ngFor="let choice of activityChoices$ | async"
+          [nzLabel]="choice.label"
+          [nzValue]="choice.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox formControlName="isSuper">
+        <span>Is super admin</span>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="createForm.invalid"
+      >
+        Create
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

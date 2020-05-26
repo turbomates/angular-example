@@ -1,0 +1,49 @@
+<nz-page-header nzTitle="Transaction">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Transaction</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<nz-table
+  #table
+  nzSize="middle"
+  [nzData]="list$ | async"
+  [nzTotal]="currentTotal$ | async"
+  [nzLoading]="isLoading$ | async"
+  [nzPageSize]="(paginationSearchParams$ | async)?.pageSize"
+  [nzPageIndex]="(paginationSearchParams$ | async)?.currentPage"
+  (nzPageSizeChange)="pageSizeChange($event)"
+  (nzPageIndexChange)="pageIndexChange($event)"
+  [nzPageSizeOptions]="[10, 20, 30]"
+  [nzShowSizeChanger]="true"
+  [nzFrontPagination]="false"
+  [nzNoResult]="error"
+>
+  <thead>
+    <tr>
+      <th>Action Type</th>
+      <th>Type</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th>Amount</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of table.data">
+      <td>{{ data.actionType }}</td>
+      <td>{{ data.type }}</td>
+      <td>{{ data.createdAt | date: "dd-MM-yyyy HH:mm:ss" }}</td>
+      <td>{{ data.updatedAt | date: "dd-MM-yyyy HH:mm:ss" }}</td>
+      <td>{{ data.money.amount }} {{ data.money.currency }}</td>
+      <td>{{ data.status }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #error>
+  <app-error [error]="error$ | async"></app-error>
+</ng-template>

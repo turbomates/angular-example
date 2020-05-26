@@ -1,0 +1,17 @@
+<nz-form-item>
+  <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="count">
+    Count
+  </nz-form-label>
+  <nz-form-control
+    [nzSm]="14"
+    [nzXs]="24"
+    nzErrorTip="The input is not valid count!"
+  >
+    <nz-input-number
+      id="count"
+      [formControl]="controlName"
+      [nzMin]="0"
+      style="width: 100%"
+    ></nz-input-number>
+  </nz-form-control>
+</nz-form-item>

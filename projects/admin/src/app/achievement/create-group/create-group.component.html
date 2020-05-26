@@ -1,0 +1,80 @@
+<nz-page-header>
+  <nz-page-header-title>
+    <app-back-button backTo="/achievement"></app-back-button>
+    Create Group
+  </nz-page-header-title>
+
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/achievement']">Achievement</a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>Create Group</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form
+  nz-form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="createGroupForm"
+  [formErrors]="formErrors$ | async"
+>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">
+      Name
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="The input is not valid name!"
+    >
+      <input nz-input formControlName="name" id="name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="priority">
+      Priority
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="The input is not valid priority!"
+    >
+      <nz-input-number
+        nz-input
+        formControlName="priority"
+        id="priority"
+        style="width: 100%;"
+        [nzMin]="0"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="show">
+      Show
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <label nz-checkbox formControlName="show" id="show"></label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [nzLoading]="isSubmitting$ | async"
+        [disabled]="createGroupForm.invalid"
+      >
+        Create
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

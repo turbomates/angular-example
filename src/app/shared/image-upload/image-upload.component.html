@@ -1,0 +1,19 @@
+<nz-upload
+  class="picture-uploader"
+  nzName="picture"
+  nzListType="picture-card"
+  id="badge"
+  (nzChange)="handleChange($event)"
+  [nzShowUploadList]="false"
+  [nzCustomRequest]="customReq"
+>
+  <ng-container *ngIf="!imageUrl">
+    <i
+      class="upload-icon"
+      nz-icon
+      [nzType]="loading ? 'loading' : 'plus'"
+    ></i>
+    <div class="ant-upload-text">Upload</div>
+  </ng-container>
+  <img *ngIf="imageUrl" [src]="imageUrl" class="picture" />
+</nz-upload>

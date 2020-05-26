@@ -1,0 +1,50 @@
+<nz-page-header>
+  <nz-page-header-title>
+    <app-back-button backTo="/super-agent"></app-back-button>
+    {{ (data$ | async)?.username }}
+  </nz-page-header-title>
+
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/super-agent']">Super agent</a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>{{ (data$ | async)?.username }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<nz-descriptions
+  nzTitle="Super Agent Info"
+  nzBordered
+  [nzColumn]="1"
+  *ngIf="data$ | async as data"
+>
+  <nz-descriptions-item nzTitle="Id">
+    {{ data.id }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Username">
+    {{ data.username }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Email">
+    {{ data.email }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="First Name">
+    {{ data.firstName }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Last Name">
+    {{ data.lastName }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Locale">
+    {{ data.locale }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Currency">
+    {{ data.currency }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Phone">
+    {{ data.phone }}
+  </nz-descriptions-item>
+</nz-descriptions>

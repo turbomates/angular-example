@@ -1,0 +1,147 @@
+<form
+  nz-form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  [formErrors]="errors"
+>
+  <nz-form-item>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="The input is not valid badge!"
+      class="badge"
+    >
+      <app-image-upload formControlName="badge"></app-image-upload>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>
+      Type
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" disabled="true">
+      <nz-select
+        nzShowSearch
+        formControlName="type"
+        (ngModelChange)="changeFormControl(form.get('type').value)"
+        [nzDisabled]="formActionType === 'Edit'"
+      >
+        <nz-option
+          *ngFor="let choice of achievementTypesChoices"
+          [nzLabel]="choice.label"
+          [nzValue]="choice.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <ng-container [ngSwitch]="form.get('type').value">
+    <ng-template ngSwitchCase="bets">
+      <admin-achievements-form-bets
+        [controlName]="this.form.get('count')"
+      ></admin-achievements-form-bets>
+    </ng-template>
+
+    <ng-template ngSwitchCase="points">
+      <admin-achievements-form-points
+        [controlName]="this.form.get('amount')"
+      ></admin-achievements-form-points>
+    </ng-template>
+
+    <ng-template ngSwitchCase="win_bets_row">
+      <admin-achievements-form-win-bets-row
+        [controlName]="this.form.get('count')"
+      ></admin-achievements-form-win-bets-row>
+    </ng-template>
+
+    <ng-template ngSwitchCase="opened_achievements">
+      <admin-achievements-form-opened-achievements
+        [controlName]="this.form.get('count')"
+      ></admin-achievements-form-opened-achievements>
+    </ng-template>
+  </ng-container>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="title">
+      Title
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="title" id="title" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="description">
+      Description
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="description" id="description" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="rank">
+      Rank
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-input-number
+        formControlName="rank"
+        id="rank"
+        [nzMin]="0"
+        style="width: 100%"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="fee">
+      Fee
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-input-number
+        formControlName="fee"
+        id="fee"
+        [nzMin]="0"
+        style="width: 100%"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="enabled">
+      Enabled
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <label
+        nz-checkbox
+        [nzChecked]="form.get('enabled')"
+        formControlName="enabled"
+      ></label>
+    </nz-form-control>
+
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="repeatable">
+      Repeatable
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <label
+        nz-checkbox
+        [nzChecked]="form.get('repeatable')"
+        formControlName="repeatable"
+      ></label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="form.invalid"
+        [nzLoading]="isSubmitting"
+      >
+        {{ formActionType }}
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

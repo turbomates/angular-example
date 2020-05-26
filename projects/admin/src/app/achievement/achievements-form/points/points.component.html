@@ -1,0 +1,17 @@
+<nz-form-item>
+  <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="pointsAmount">
+    Amount
+  </nz-form-label>
+  <nz-form-control
+    [nzSm]="14"
+    [nzXs]="24"
+    nzErrorTip="The input is not valid amount!"
+  >
+    <nz-input-number
+      [formControl]="controlName"
+      id="pointsAmount"
+      [nzMin]="0"
+      style="width: 100%"
+    ></nz-input-number>
+  </nz-form-control>
+</nz-form-item>

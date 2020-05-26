@@ -1,0 +1,16 @@
+.login {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 20vh;
+  padding: 24px 24px 5px 24px;
+  box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.2);
+
+  &__form,
+  &__form-button {
+    width: 100%;
+  }
+}

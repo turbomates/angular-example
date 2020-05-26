@@ -1,0 +1,7 @@
+<nz-tabset [nzSelectedIndex]="selectTabs()">
+  <nz-tab
+    *ngFor="let scope of scopesMap"
+    [nzTitle]="scope.label"
+    (nzClick)="select(scope.value)"
+  ></nz-tab>
+</nz-tabset>

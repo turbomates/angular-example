@@ -1,0 +1,38 @@
+<nz-card
+  [nzCover]="coverTemplate"
+  [nzActions]="[actionShow, actionEdit]"
+  class="achievement-group__item"
+>
+  <nz-card-meta
+    [nzTitle]="achievement.title"
+    [nzDescription]="achievement.description"
+  ></nz-card-meta>
+</nz-card>
+
+<ng-template #coverTemplate>
+  <img
+    alt="Achievement image"
+    [src]="achievement.badge"
+    class="achievement-group__image"
+    *ngIf="achievement.badge"
+  />
+</ng-template>
+
+<ng-template #actionEdit>
+  <a
+    [routerLink]="['edit', achievement.id]"
+    *hasAccess="['UPDATE_ACHIEVEMENT']"
+  >
+    <i nz-icon nzType="edit"></i>
+  </a>
+</ng-template>
+
+<ng-template #actionShow>
+  <a
+    nz-icon
+    nzType="info-circle"
+    nzTheme="outline"
+    [routerLink]="['show', achievement.id]"
+    *hasAccess="['SHOW_ACHIEVEMENT']"
+  ></a>
+</ng-template>

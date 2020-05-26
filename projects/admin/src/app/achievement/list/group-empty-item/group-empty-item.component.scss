@@ -1,0 +1,29 @@
+.achievement-group-empty {
+  &__item {
+    width: 200px;
+    margin: 10px;
+    height: calc(100% - 20px);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+
+  &__item:hover {
+    border-color: #1890ff;
+  }
+
+  &__meta {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__icon {
+    font-size: 1.5em;
+  }
+}

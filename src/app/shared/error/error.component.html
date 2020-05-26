@@ -1,0 +1,26 @@
+<div *ngIf="error; else empty">
+  <div [ngSwitch]="error.status">
+    <ng-template [ngSwitchCase]="500">
+      <nz-result nzStatus="500" nzTitle="500" [nzSubTitle]="error.message">
+      </nz-result>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="404">
+      <nz-result nzStatus="404" nzTitle="404" [nzSubTitle]="error.message">
+      </nz-result>
+    </ng-template>
+
+    <ng-template ngSwitchDefault>
+      <nz-result
+        nzStatus="403"
+        [nzTitle]="error.status"
+        [nzSubTitle]="error.message"
+      >
+      </nz-result>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #empty>
+  <nz-embed-empty nzComponentName="table"></nz-embed-empty>
+</ng-template>

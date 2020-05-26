@@ -1,0 +1,115 @@
+<div *ngFor="let account of accountData$ | async">
+  <p class="account__balance">
+    {{ account.balance.amount }} {{ account.balance.currency }}
+  </p>
+
+  <div class="account__actions-container">
+    <button
+      nz-button
+      nzType="primary"
+      nz-popover
+      nzPopoverTitle="Take money"
+      nzPopoverTrigger="click"
+      [(nzVisible)]="visibleTakeMoney"
+      [nzPopoverContent]="takeMoneyPopover"
+      [nzLoading]="isSubmitting$ | async"
+    >
+      Take money
+    </button>
+
+    <button
+      nz-button
+      nzType="primary"
+      nz-popover
+      nzPopoverTitle="Send money"
+      nzPopoverTrigger="click"
+      [(nzVisible)]="visibleSendMoney"
+      [nzPopoverContent]="sendMoneyPopover"
+      [nzLoading]="isSubmitting$ | async"
+    >
+      Send money
+    </button>
+  </div>
+
+  <ng-template #sendMoneyPopover>
+    <form
+      nz-form
+      nzLayout="inline"
+      [formGroup]="formSend"
+      [formErrors]="formErrors$ | async"
+    >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your amount!">
+          <nz-input-number
+            nzMin="0"
+            formControlName="amount"
+            nz-input
+          ></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button
+            type="button"
+            nz-button
+            nzType="primary"
+            (click)="closePopovers()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            nz-button
+            nzType="primary"
+            (click)="sendAccountMoney(account.id)"
+            [disabled]="formSend.invalid"
+          >
+            Accept
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+
+  <ng-template #takeMoneyPopover>
+    <form
+      nz-form
+      nzLayout="inline"
+      [formGroup]="formTake"
+      [formErrors]="formErrors$ | async"
+    >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your amount!">
+          <nz-input-number
+            nzMin="0"
+            formControlName="amount"
+            nz-input
+          ></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button
+            type="button"
+            nz-button
+            nzType="primary"
+            (click)="closePopovers()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            nz-button
+            nzType="primary"
+            (click)="takeAccountMoney(account.id)"
+            [disabled]="formTake.invalid"
+          >
+            Accept
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+</div>

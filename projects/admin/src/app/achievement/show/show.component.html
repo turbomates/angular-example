@@ -1,0 +1,67 @@
+<nz-page-header>
+  <nz-page-header-title>
+    <app-back-button backTo="/achievement"></app-back-button>
+    {{ (data$ | async)?.title }}
+  </nz-page-header-title>
+
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/achievement']">Achievement</a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>{{ (data$ | async)?.title }}</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<nz-descriptions
+  nzTitle="Achievement Info"
+  nzBordered
+  [nzColumn]="1"
+  *ngIf="data$ | async as data"
+>
+  <nz-descriptions-item nzTitle="Badge">
+    <img [src]="data.badge" alt="badge" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Type">
+    {{ data.type }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Condition" [ngSwitch]="data.type">
+    <ng-template ngSwitchCase="bets">
+      Count : {{ data.condition.count }}
+    </ng-template>
+
+    <ng-template ngSwitchCase="points">
+      Amount : {{ data.condition.amount }}
+    </ng-template>
+
+    <ng-template ngSwitchCase="win_bets_row">
+      Count : {{ data.condition.count }}
+    </ng-template>
+
+    <ng-template ngSwitchCase="opened_achievements">
+      Count : {{ data.condition.count }}
+    </ng-template>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Title">
+    {{ data.title }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Description">
+    {{ data.description }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Rank">
+    {{ data.rank }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Fee">
+    {{ data.fee }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Enabled">
+    {{ data.enabled }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Repeatable">
+    {{ data.repeatable }}
+  </nz-descriptions-item>
+</nz-descriptions>

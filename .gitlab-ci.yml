@@ -1,0 +1,51 @@
+image: node:lts-alpine
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - "which ssh-agent || ( apk --update add openssh-client )"
+  - "which rsync || ( apk --update add rsync )"
+  - "which git || (apk add --no-cache git)"
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | ssh-add -
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  script:
+    - npm i --silent --no-progress
+    - npm run test
+
+deploy-admin:
+  stage: deploy
+  only:
+    - master
+  script:
+    - npm i --silent --no-progress
+    - npm run build:admin
+    - npm run deploy:admin
+
+deploy-master:
+  stage: deploy
+  only:
+    - master
+  script:
+    - npm i --silent --no-progress
+    - npm run build:master
+    - npm run deploy:master
+
+deploy-supermaster:
+  stage: deploy
+  only:
+    - master
+  script:
+    - npm i --silent --no-progress
+    - npm run build:supermaster
+    - npm run deploy:supermaster

@@ -1,0 +1,103 @@
+<nz-page-header>
+  <nz-page-header-title>
+    <app-back-button backTo="/player"></app-back-button>
+    Edit preferences
+  </nz-page-header-title>
+
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/player']">Players</a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>Edit preferences</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form nz-form [formGroup]="editForm" *ngIf="editForm" (ngSubmit)="onSubmit()" [formErrors]="formErrors$">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="locale">
+      Locale
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Select a locale"
+        formControlName="locale"
+      >
+        <nz-option
+          *ngFor="let locale of localeChoices"
+          [nzLabel]="locale.label"
+          [nzValue]="locale.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="currency">
+      Currency
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Select a currency"
+        formControlName="currency"
+      >
+        <nz-option
+          *ngFor="let currency of currencyChoices"
+          [nzLabel]="currency.label"
+          [nzValue]="currency.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="oddFormat">
+      Odd format
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+    >
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Select a odd format"
+        formControlName="oddFormat"
+      >
+        <nz-option
+          *ngFor="let oddFormat of oddFormatChoices"
+          [nzLabel]="oddFormat.label"
+          [nzValue]="oddFormat.value"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="editForm.invalid"
+        [nzLoading]="isSubmitting$ | async"
+      >
+        Save
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

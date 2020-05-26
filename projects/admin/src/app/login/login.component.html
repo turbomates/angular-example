@@ -1,0 +1,49 @@
+<div class="login">
+  <nz-page-header nzTitle="Login"></nz-page-header>
+
+  <form
+    nz-form
+    class="login__form"
+    [formGroup]="authForm"
+    (ngSubmit)="onSubmitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Username!">
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="username"
+            placeholder="Username"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Password"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button
+          nz-button
+          class="login__form-button"
+          nzType="primary"
+          [nzLoading]="isSubmitting$ | async"
+        >
+          Log in
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

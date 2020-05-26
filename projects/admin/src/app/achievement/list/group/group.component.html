@@ -1,0 +1,23 @@
+<div class="achievement-group">
+  <nz-page-header [nzTitle]="group.name">
+    <nz-page-header-subtitle>
+      {{ group.show ? "showed" : "hidden" }}
+      <a
+        [routerLink]="['edit-group', group.id]"
+        *hasAccess="['UPDATE_ACHIEVEMENT_GROUP']"
+        >
+        <i nz-icon nzType="edit" nzTheme="outline"></i>
+      </a>
+    </nz-page-header-subtitle>
+  </nz-page-header>
+
+  <div class="achievement-group__item-container">
+    <admin-achievement-list-group-item
+      *ngFor="let achievement of group.achievements"
+      [achievement]="achievement"
+    ></admin-achievement-list-group-item>
+    <admin-achievement-list-group-empty-item
+      [groupId]="group.id"
+    ></admin-achievement-list-group-empty-item>
+  </div>
+</div>

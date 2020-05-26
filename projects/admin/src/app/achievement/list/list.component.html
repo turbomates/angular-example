@@ -1,0 +1,17 @@
+<nz-page-header nzTitle="Achievement">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Achievement</nz-breadcrumb-item>
+  </nz-breadcrumb>
+
+  <nz-page-header-extra>
+    <a nz-button [routerLink]="['create-group']" *hasAccess="['CREATE_ACHIEVEMENT_GROUP']" nzType="primary">Create</a>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<admin-achievement-list-group
+  *ngFor="let group of list$ | async"
+  [group]="group"
+></admin-achievement-list-group>

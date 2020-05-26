@@ -1,0 +1,14 @@
+.account {
+  &__balance {
+    display: inline-flex;
+  }
+
+  &__actions-container {
+    display: inline-flex;
+    padding-left: 25px;
+  }
+}
+
+.ant-btn {
+  margin-left: 25px;
+}

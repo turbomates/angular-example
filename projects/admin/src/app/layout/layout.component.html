@@ -1,0 +1,81 @@
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzTheme="light"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+    [nzCollapsedWidth]="0"
+  >
+    <div class="sidebar-logo">
+      <div>
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
+        <h1>Admin</h1>
+      </div>
+    </div>
+    <ul
+      nz-menu
+      nzTheme="light"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li nz-submenu nzOpen nzTitle="Users">
+        <ul>
+          <li *hasAccess="['LIST_ADMINS']" nz-menu-item nzMatchRouter>
+            <a routerLink="/admins">Admins</a>
+          </li>
+          <li *hasAccess="['LIST_SUPERMASTERS']" nz-menu-item nzMatchRouter>
+            <a routerLink="/super-agent">Super Agent</a>
+          </li>
+          <li *hasAccess="['LIST_PLAYERS']" nz-menu-item nzMatchRouter>
+            <a routerLink="/player">Players</a>
+          </li>
+          <li *hasAccess="['LIST_MASTERS']" nz-menu-item nzMatchRouter>
+            <a routerLink="/master">Masters</a>
+          </li>
+        </ul>
+      </li>
+      <li *hasAccess="['LIST_TRANSACTION']" nz-menu-item nzMatchRouter>
+        <a routerLink="/transaction">Transaction</a>
+      </li>
+      <li *hasAccess="['LIST_BET']" nz-menu-item nzMatchRouter>
+        <a routerLink="/bet">Bet</a>
+      </li>
+      <li
+        *hasAccess="['LIST_ACHIEVEMENT_GROUP', 'LIST_ACHIEVEMENTS']"
+        nz-menu-item
+        nzMatchRouter
+      >
+        <a routerLink="/achievement">Achievement</a>
+      </li>
+      <li *hasAccess="['LIST_LOTTERY']" nz-menu-item nzMatchRouter>
+        <a routerLink="/lottery">Lottery</a>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="toggle()">
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
+        </span>
+
+        <span class="header-logout" (click)="logout()">
+          <i class="logout" nz-icon nzType="logout" nzTheme="outline"></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

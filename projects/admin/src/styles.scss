@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+.ant-pagination-item,
+.ant-pagination-jump-prev,
+.ant-pagination-jump-next {
+  display: none;
+}
+
+.ant-pagination-item-active {
+  display: inline-block;
+}
+
+.ant-page-header {
+  padding: 0 0 24px;
+}

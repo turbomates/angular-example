@@ -1,0 +1,11 @@
+<nz-card
+  class="achievement-group-empty__item"
+  [routerLink]="['create', groupId]"
+  *hasAccess="['CREATE_ACHIEVEMENT']"
+>
+  <div class="achievement-group-empty__meta">
+    <i nz-icon nzType="plus" class="achievement-group-empty__icon"></i>
+  </div>
+
+  <nz-card-meta nzTitle="Add achievement"></nz-card-meta>
+</nz-card>

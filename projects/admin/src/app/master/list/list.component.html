@@ -1,0 +1,76 @@
+<nz-page-header nzTitle="Master">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']"><i nz-icon nzType="home"></i></a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Master</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<nz-table
+  #table
+  nzSize="middle"
+  [nzData]="list$ | async"
+  [nzTotal]="currentTotal$ | async"
+  [nzLoading]="isLoading$ | async"
+  [nzPageSize]="(paginationSearchParams$ | async)?.pageSize"
+  [nzPageIndex]="(paginationSearchParams$ | async)?.currentPage"
+  (nzPageSizeChange)="pageSizeChange($event)"
+  (nzPageIndexChange)="pageIndexChange($event)"
+  [nzPageSizeOptions]="[10, 20, 30]"
+  [nzShowSizeChanger]="true"
+  [nzFrontPagination]="false"
+  [nzNoResult]="error"
+>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Username</th>
+      <th>Locale</th>
+      <th>Currency</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of table.data">
+      <td>{{ data.email }}</td>
+      <td>{{ data.username }}</td>
+      <td>{{ data.locale }}</td>
+      <td>{{ data.currency }}</td>
+      <td>
+        <nz-button-group>
+          <a
+            *hasAccess="['UPDATE_MASTER_DETAILS']"
+            nz-button
+            [routerLink]="['edit', data.id]"
+          >
+            Edit
+          </a>
+          <a
+            nz-button
+            nz-dropdown
+            nzPlacement="bottomRight"
+            [nzDropdownMenu]="actions"
+          >
+            <i nz-icon nzType="ellipsis"></i>
+          </a>
+        </nz-button-group>
+        <nz-dropdown-menu #actions="nzDropdownMenu">
+          <ul nz-menu>
+            <li
+              nz-menu-item
+              [routerLink]="['show', data.id]"
+              *hasAccess="['SHOW_MASTER']"
+            >
+              Show
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #error>
+  <app-error [error]="error$ | async"></app-error>
+</ng-template>
